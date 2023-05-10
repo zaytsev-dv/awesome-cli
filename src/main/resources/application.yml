@@ -1,0 +1,6 @@
+shell:
+  out:
+    info: CYAN
+    success: GREEN
+    warning: YELLOW
+    error: RED
