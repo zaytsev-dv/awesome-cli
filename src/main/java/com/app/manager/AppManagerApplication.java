@@ -1,16 +1,28 @@
 package com.app.manager;
 
+import com.app.manager.cache.Cache;
+import com.app.manager.cache.SettingConstant;
+import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+
+import java.nio.file.Paths;
 
 @SpringBootApplication
 @Slf4j
+@AllArgsConstructor
 public class AppManagerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AppManagerApplication.class, args);
-	}
+    private final Cache cache;
+
+    public static void main(String[] args) {
+        SpringApplication.run(AppManagerApplication.class, args);
+    }
+
+    @PostConstruct
+    public void init(){
+        cache.addNewSetting(SettingConstant.PROJECT_ROOT, Paths.get("").toAbsolutePath().toString());
+    }
 }

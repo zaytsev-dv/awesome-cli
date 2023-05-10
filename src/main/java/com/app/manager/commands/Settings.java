@@ -26,4 +26,10 @@ public class Settings {
                 shellHelper.getWarningMessage("Project Dir: " + path)
         );
     }
+
+
+    @ShellMethod(value = "Print \"awesome-cli\" root directory", key = "print-awesome-cli-root-dir")
+    public String printRootDir() {
+        return shellHelper.getSuccessMessage(cache.getSettingsByKey(SettingConstant.PROJECT_ROOT).get(0));
+    }
 }
