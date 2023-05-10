@@ -9,6 +9,10 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ShellComponent
 @AllArgsConstructor
 public class Settings {
@@ -31,5 +35,18 @@ public class Settings {
     @ShellMethod(value = "Print \"awesome-cli\" root directory", key = "print-awesome-cli-root-dir")
     public String printRootDir() {
         return shellHelper.getSuccessMessage(cache.getSettingsByKey(SettingConstant.PROJECT_ROOT).get(0));
+    }
+
+    @ShellMethod(value = "Print \"awesome-cli\" all settings", key = "print-awesome-cli-all-settings")
+    public String printAllSettings() {
+        HashMap<SettingConstant, List<String>> allSetting = cache.getAllSetting();
+        StringBuilder sb = new StringBuilder();
+        allSetting.forEach((key,value) -> {
+            sb.append(key)
+                    .append(" - ");
+            sb.append(String.join("\n", value))
+                    .append("\n");
+        });
+        return sb.toString();
     }
 }
