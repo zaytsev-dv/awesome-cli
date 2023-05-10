@@ -24,5 +24,8 @@ public class AppManagerApplication {
     @PostConstruct
     public void init(){
         cache.addNewSetting(SettingConstant.PROJECT_ROOT, Paths.get("").toAbsolutePath().toString());
+        cache.fillOSInfo("OS Name: " +  System.getProperty("os.name"));
+        cache.fillOSInfo("OS Version: " +  System.getProperty("os.version"));
+        cache.fillOSInfo("OS Arch: " +  System.getProperty("os.arch"));
     }
 }

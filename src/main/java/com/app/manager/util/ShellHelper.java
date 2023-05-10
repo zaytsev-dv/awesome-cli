@@ -36,6 +36,10 @@ public class ShellHelper {
         return getColored(message, PromptColor.valueOf(warningColor));
     }
 
+    public String getInfoMessage(String message) {
+        return getColored(message, PromptColor.valueOf(infoColor));
+    }
+
     /**
      * Print message to the console in the default color.
      *

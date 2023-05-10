@@ -3,13 +3,13 @@ package com.app.manager.cache;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 @Component
 public class Cache {
     private final HashMap<SettingConstant, List<String>> settings = new HashMap<>();
+    private final List<String> osInfo = new ArrayList<>();
 
     public void addNewSetting(
             final SettingConstant settingKey,
@@ -32,5 +32,13 @@ public class Cache {
             final SettingConstant settingKey
     ) {
         return this.settings.get(settingKey);
+    }
+
+    public void fillOSInfo(final String infoValue) {
+        osInfo.add(infoValue);
+    }
+
+    public String getFormattedOSInfo() {
+        return String.join("\n", osInfo);
     }
 }
