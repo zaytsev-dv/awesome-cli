@@ -9,12 +9,12 @@ then
             if [[ -f "$JAR_NAME" ]]
 then
     echo "$JAR_NAME exists on your filesystem."
-    cd target
+    cd target || exit
     java -jar awesome-cli.jar
 else echo mvnw package
             fi
 else ./mvnw clean package
-  cd target
+  cd target || exit
  java -jar awesome-cli.jar
 fi
 
