@@ -51,6 +51,8 @@ public class CustomPromptProvider implements PromptProvider {
         buf.append("\n");
         buf.append(shellHelper.getInfoMessage(cache.getFormattedOSInfo()));
         buf.append("\n");
+        buf.append("===================================================================");
+        buf.append("\n");
         return buf.toString();
     }
 }
