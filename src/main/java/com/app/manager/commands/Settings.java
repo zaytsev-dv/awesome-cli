@@ -5,6 +5,7 @@ import com.app.manager.cache.SettingConstant;
 import com.app.manager.util.CommandTab;
 import com.app.manager.util.ShellHelper;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -31,12 +32,12 @@ public class Settings {
         );
     }
 
-
     @ShellMethod(value = "Print \"awesome-cli\" root directory", key = "print-awesome-cli-root-dir")
     public String printRootDir() {
         return shellHelper.getSuccessMessage(cache.getSettingsByKey(SettingConstant.PROJECT_ROOT).get(0));
     }
 
+    //TODO: поиграться с цветом
     @ShellMethod(value = "Print \"awesome-cli\" all settings", key = "print-awesome-cli-all-settings")
     public String printAllSettings() {
         HashMap<SettingConstant, List<String>> allSetting = cache.getAllSetting();
@@ -44,7 +45,7 @@ public class Settings {
         allSetting.forEach((key,value) -> {
             sb.append(key)
                     .append(" - ");
-            sb.append(String.join("\n", value))
+            sb.append(String.join("\n" + StringUtils.repeat(' ', 14), value))
                     .append("\n");
         });
         return sb.toString();

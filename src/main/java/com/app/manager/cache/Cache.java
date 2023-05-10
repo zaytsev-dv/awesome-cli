@@ -2,6 +2,7 @@ package com.app.manager.cache;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,9 @@ public class Cache {
         if (this.settings.get(settingKey) != null) {
             this.settings.get(settingKey).add(settingValue);
         } else {
-            this.settings.put(settingKey, Arrays.asList(settingValue));
+            ArrayList<String> values = new ArrayList<>();
+            values.add(settingValue);
+            this.settings.put(settingKey, values);
         }
     }
 
