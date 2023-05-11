@@ -12,7 +12,6 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ShellComponent
 @AllArgsConstructor
