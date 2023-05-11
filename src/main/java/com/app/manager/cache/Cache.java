@@ -18,6 +18,12 @@ import java.util.List;
 @Component
 @Slf4j
 public class Cache {
+    public static final String OS_NAME = "os.name";
+    public static final String OS_VERSION = "os.version";
+    public static final String OS_ARCH = "os.arch";
+    public static final String DELIMITER = ":";
+    public static final String NEXT_LINE = "\n";
+
     private final HashMap<SettingConstant, List<String>> settings = new HashMap<>();
     private final List<String> osInfo = new ArrayList<>();
 
@@ -49,7 +55,7 @@ public class Cache {
     }
 
     public String getFormattedOSInfo() {
-        return String.join("\n", osInfo);
+        return String.join(NEXT_LINE, osInfo);
     }
 
     public void fillOrCreateOsInfo(String rootPath) throws IOException {
@@ -58,9 +64,9 @@ public class Cache {
         if (!Files.exists(pathOsFile)) {
             CustomFileUtils.saveNewFileVoid(osinfoFilePath);
             try {
-                String osName = OsInfoConstant.NAME.getText() + ":" + System.getProperty("os.name");
-                String osVersion = OsInfoConstant.VERSION.getText() + ":" + System.getProperty("os.version");
-                String osArch = OsInfoConstant.ARCH.getText() + ":" + System.getProperty("os.arch");
+                String osName = OsInfoConstant.NAME.getText() + DELIMITER + System.getProperty(OS_NAME);
+                String osVersion = OsInfoConstant.VERSION.getText() + DELIMITER + System.getProperty(OS_VERSION);
+                String osArch = OsInfoConstant.ARCH.getText() + DELIMITER + System.getProperty(OS_ARCH);
 
                 CustomFileUtils.writeLineToFile(pathOsFile, osName);
                 CustomFileUtils.writeLineToFile(pathOsFile, osVersion);
@@ -76,7 +82,7 @@ public class Cache {
         } else {
             CustomFileUtils.readFileAndFillCache(
                     osinfoFilePath,
-                    (s, s2) -> fillOSInfo(OsInfoConstant.fromString(s).getText() + ":" + s2)
+                    (s, s2) -> fillOSInfo(OsInfoConstant.fromString(s).getText() + DELIMITER + s2)
             );
         }
     }
@@ -85,7 +91,7 @@ public class Cache {
         String settingsFilePath = rootPath + CustomFileUtils.CACHE_SETTINGS_TXT;
         if (!Files.exists(Paths.get(settingsFilePath))) {
             File savedFile = CustomFileUtils.saveNewFile(settingsFilePath);
-            FileUtils.writeStringToFile(savedFile, SettingConstant.PROJECT_ROOT + ":" + rootPath + "\n", StandardCharsets.UTF_8);
+            FileUtils.writeStringToFile(savedFile, SettingConstant.PROJECT_ROOT + DELIMITER + rootPath + NEXT_LINE, StandardCharsets.UTF_8);
             addNewSetting(SettingConstant.PROJECT_ROOT, rootPath);
         } else {
             CustomFileUtils.readFileAndFillCache(
