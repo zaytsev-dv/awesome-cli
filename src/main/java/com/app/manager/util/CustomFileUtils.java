@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.function.BiConsumer;
+import static com.app.manager.util.TextConstant.*;
 
 public final class CustomFileUtils {
 
@@ -29,10 +30,10 @@ public final class CustomFileUtils {
         savedFile.createNewFile();
     }
 
-    public static void writeLineToFile(Path pathOsFile, String osName) throws IOException {
+    public static void writeLineToFile(Path pathOsFile, String propName) throws IOException {
         Files.writeString(
                 pathOsFile,
-                osName + "\n",
+                propName + NEXT_LINE,
                 StandardOpenOption.APPEND
         );
     }
@@ -40,7 +41,7 @@ public final class CustomFileUtils {
     public static void readFileAndFillCache(final String path, final BiConsumer<String, String> biConsumer) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             for (String line; (line = br.readLine()) != null; ) {
-                String[] parts = line.split(":");
+                String[] parts = line.split(DELIMITER);
                 String settingName = parts[0];
                 String settingValue = parts[1];
                 biConsumer.accept(settingName, settingValue);

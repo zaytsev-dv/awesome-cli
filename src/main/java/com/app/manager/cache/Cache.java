@@ -1,11 +1,14 @@
 package com.app.manager.cache;
 
 import com.app.manager.util.CustomFileUtils;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,15 +18,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.app.manager.util.TextConstant.*;
+
+
 @Component
 @Slf4j
 public class Cache {
-    public static final String OS_NAME = "os.name";
-    public static final String OS_VERSION = "os.version";
-    public static final String OS_ARCH = "os.arch";
-    public static final String DELIMITER = ":";
-    public static final String NEXT_LINE = "\n";
-
     private final HashMap<SettingConstant, List<String>> settings = new HashMap<>();
     private final List<String> osInfo = new ArrayList<>();
 
@@ -40,14 +40,69 @@ public class Cache {
         }
     }
 
-    public HashMap<SettingConstant, List<String>> getAllSetting() {
-        return this.settings;
+    @SneakyThrows
+    public void addNewSettingToFile(
+            final SettingConstant settingKey,
+            final String settingValue
+    ) {
+        boolean settingConstantAlreadyExist = this.settings.get(settingKey) != null;
+        String rootPath = getRootPath();
+        Path filePath = Paths.get(rootPath);
+
+        if (settingConstantAlreadyExist) {
+            this.settings.get(settingKey).add(settingValue);
+            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+
+            try (BufferedReader br = new BufferedReader(new FileReader(rootPath))) {
+                int lineNumber = 1;
+                for (String line; (line = br.readLine()) != null; ) {
+                    String[] parts = line.split(DELIMITER);
+
+                    addSettingValueToAlreadyExistSettingKey(settingKey, settingValue, filePath, lines, lineNumber, parts);
+                    lineNumber++;
+                }
+            }
+
+        } else {
+            ArrayList<String> values = new ArrayList<>();
+            values.add(settingValue);
+            this.settings.put(settingKey, values);
+
+            addSettingValueToNewLine(settingKey, settingValue, filePath);
+        }
     }
 
-    public List<String> getSettingsByKey(
-            final SettingConstant settingKey
-    ) {
-        return this.settings.get(settingKey);
+    private String getRootPath() {
+        return this.settings.get(SettingConstant.PROJECT_ROOT).get(0) + CustomFileUtils.CACHE_SETTINGS_TXT;
+    }
+
+    private static void addSettingValueToNewLine(
+            final SettingConstant settingKey,
+            final String settingValue,
+            final Path filePath
+    ) throws IOException {
+        CustomFileUtils.writeLineToFile(
+                filePath,
+                settingKey + DELIMITER + settingValue
+        );
+    }
+
+    private static void addSettingValueToAlreadyExistSettingKey(
+            final SettingConstant settingKey,
+            final String settingValue,
+            final Path filePath, List<String> lines,
+            final int lineNumber,
+            final String[] parts
+    ) throws IOException {
+        if (parts[0].equalsIgnoreCase(settingKey.toString())) {
+            String newLine = settingKey + DELIMITER + parts[1] + DELIMITER_2 + settingValue;
+            lines.set(lineNumber - 1, newLine);
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
+        }
+    }
+
+    public HashMap<SettingConstant, List<String>> getAllSetting() {
+        return this.settings;
     }
 
     public void fillOSInfo(final String infoValue) {
@@ -105,5 +160,9 @@ public class Cache {
         if (!Files.exists(Paths.get(rootPath + CustomFileUtils.CACHE_DIR))) {
             new File(rootPath + CustomFileUtils.CACHE_DIR).mkdirs();
         }
+    }
+
+    public List<String> getOsInfo() {
+        return osInfo;
     }
 }
