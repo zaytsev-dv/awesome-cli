@@ -10,14 +10,14 @@ public class InitFolderInfoUseCaseImpl implements InitFolderInfoUseCase {
 
     @Override
     public String getFormatted() {
-        BaseInfo info = this.getInfo();
+        BaseInfo info = this.getFromFileSystemInfo();
         return "HOME FOLDER: " + info.getHomeFolder() + NEXT_LINE +
                 "ROOT CLI FOLDER: " +  info.getRootCliFolder() + NEXT_LINE +
                 "DOWNLOAD FOLDER: " + info.getRootCliFolder() + info.getDownloadFolder();
     }
 
     @Override
-    public BaseInfo getInfo() {
+    public BaseInfo getFromFileSystemInfo() {
         String homeDir = System.getProperty(FolderConstant.HOME.getSystemPropName());
         String rootDir = System.getProperty(FolderConstant.ROOT.getSystemPropName());
         String downLoadDir = FolderConstant.DOWNLOAD.getNameWithDelimiter();

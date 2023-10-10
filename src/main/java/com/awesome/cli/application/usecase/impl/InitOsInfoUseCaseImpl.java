@@ -12,7 +12,7 @@ public class InitOsInfoUseCaseImpl implements InitOsInfoUseCase {
 
     @Override
     public String getFormatted() {
-        OsInfo info = this.getInfo();
+        OsInfo info = this.getFromFileSystemInfo();
         return info.getOsName() +
                 NEXT_LINE +
                 info.getOsVersion() +
@@ -21,7 +21,7 @@ public class InitOsInfoUseCaseImpl implements InitOsInfoUseCase {
     }
 
     @Override
-    public OsInfo getInfo() {
+    public OsInfo getFromFileSystemInfo() {
         String osName = NAME.getText() + DELIMITER + System.getProperty(NAME.getSystemPropName());
         String osVersion = VERSION.getText() + DELIMITER + System.getProperty(VERSION.getSystemPropName());
         String osArch = ARCH.getText() + DELIMITER + System.getProperty(ARCH.getSystemPropName());

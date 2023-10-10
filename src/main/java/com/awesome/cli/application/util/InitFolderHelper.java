@@ -41,7 +41,7 @@ public class InitFolderHelper {
             case OS_INFO -> {
                 try {
                     InitOsInfoUseCase initOsInfoUseCase = new InitOsInfoUseCaseImpl();
-                    OsInfo info = initOsInfoUseCase.getInfo();
+                    OsInfo info = initOsInfoUseCase.getFromFileSystemInfo();
                     Path filePath = Paths.get(
                             this.getRootFolderString() +
                                     FolderConstant.OTHER.getNameWithDelimiter() +
@@ -58,7 +58,7 @@ public class InitFolderHelper {
             case PROPS -> {
                 try {
                     InitFolderInfoUseCase initFolderInfoUseCase = new InitFolderInfoUseCaseImpl();
-                    BaseInfo baseInfo = initFolderInfoUseCase.getInfo();
+                    BaseInfo baseInfo = initFolderInfoUseCase.getFromFileSystemInfo();
                     Path filePath = Paths.get(
                             this.getRootFolderString() +
                                     FolderConstant.PROPS.getNameWithDelimiter() +
