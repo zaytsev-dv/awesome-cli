@@ -15,4 +15,8 @@ public enum BaseFolderInfoConstant {
     public String getText() {
         return text;
     }
+
+    public String getWithDelimiter() {
+        return this + ": ";
+    }
 }

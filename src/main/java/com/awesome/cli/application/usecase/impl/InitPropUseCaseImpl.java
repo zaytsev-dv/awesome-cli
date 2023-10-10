@@ -21,7 +21,7 @@ public class InitPropUseCaseImpl implements InitPropUseCase {
         this.initFolderHelper.createFileIfNotExist(FolderConstant.PROPS.getNameWithDelimiter() + FileConstant.PROPS.getNameWithDelimiter());
         this.initFolderHelper.createFileIfNotExist(FolderConstant.OTHER.getNameWithDelimiter() + FileConstant.OS_INFO.getNameWithDelimiter());
 
-        this.initFolderHelper.fillFile(FileConstant.OS_INFO);
-        this.initFolderHelper.fillFile(FileConstant.PROPS);
+        this.initFolderHelper.fillFile(FileConstant.OS_INFO, FolderConstant.OTHER);
+        this.initFolderHelper.fillFile(FileConstant.PROPS, FolderConstant.PROPS);
     }
 }

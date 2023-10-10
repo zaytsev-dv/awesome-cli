@@ -43,47 +43,65 @@ public class InitFolderHelper {
         return System.getProperty(FolderConstant.ROOT.getSystemPropName());
     }
 
-    public void fillFile(final FileConstant fileConstant) {
-        switch (fileConstant) {
-            case OS_INFO -> {
-                try {
-                    InitOsInfoUseCase initOsInfoUseCase = new InitOsInfoUseCaseImpl();
-                    OsInfo info = initOsInfoUseCase.getFromFileSystemInfo();
-                    Path filePath = Paths.get(
-                            this.getRootFolderString() +
-                                    FolderConstant.OTHER.getNameWithDelimiter() +
-                                    FileConstant.OS_INFO.getNameWithDelimiter()
-                    );
-
-                    Files.writeString(filePath, NAME.getText() + ": " + info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, VERSION.getText() + ": " + info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, ARCH.getText() + ": " + info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
-                    this.osInfoCacheStore.add("OS_INFO", info);
-                } catch (Exception ex) {
-                    log.error("{}", ex);
-                }
-            }
-
-            case PROPS -> {
-                try {
-                    InitFolderInfoUseCase initFolderInfoUseCase = new InitFolderInfoUseCaseImpl();
-                    BaseFolderInfo baseFolderInfo = initFolderInfoUseCase.getFromFileSystemInfo();
-                    Path filePath = Paths.get(
-                            this.getRootFolderString() +
-                                    FolderConstant.PROPS.getNameWithDelimiter() +
-                                    FileConstant.PROPS.getNameWithDelimiter()
-                    );
-                    Files.writeString(filePath, BaseFolderInfoConstant.HOME + ": " + baseFolderInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, BaseFolderInfoConstant.ROOT_CLI + ": " + baseFolderInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, BaseFolderInfoConstant.DOWNLOAD + ": " +  baseFolderInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, BaseFolderInfoConstant.OTHER + ": " + baseFolderInfo.getOtherFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-
-                    this.baseFolderInfoCacheStore.add("BASE_FOLDER", baseFolderInfo);
-                } catch (Exception ex) {
-                    log.error("{}", ex);
-                }
-            }
+    private void ifFileNotExistProceed(
+            final Runnable runnable,
+            final FileConstant fileConstant,
+            final FolderConstant folderConstant
+    ) {
+        Path path = Paths.get(this.getRootFolderString() + folderConstant.getNameWithDelimiter() + fileConstant.getNameWithDelimiter());
+        if (path.toFile().length() == 0) {
+            runnable.run();
         }
+    }
+
+    public void fillFile(final FileConstant fileConstant, final FolderConstant folderConstant) {
+        switch (fileConstant) {
+            case OS_INFO -> this.ifFileNotExistProceed(getRunnableForOSInfoFilling(), fileConstant, folderConstant);
+            case PROPS -> this.ifFileNotExistProceed(getRunnableForPropsInfoFilling(), fileConstant, folderConstant);
+        }
+    }
+
+    private Runnable getRunnableForPropsInfoFilling() {
+        return () -> {
+            InitFolderInfoUseCase initFolderInfoUseCase = new InitFolderInfoUseCaseImpl();
+            BaseFolderInfo baseFolderInfo = initFolderInfoUseCase.getFromFileSystemInfo();
+            Path filePath = Paths.get(
+                    getRootFolderString() +
+                            FolderConstant.PROPS.getNameWithDelimiter() +
+                            FileConstant.PROPS.getNameWithDelimiter()
+            );
+            try {
+                Files.writeString(filePath, BaseFolderInfoConstant.HOME.getWithDelimiter() + baseFolderInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, BaseFolderInfoConstant.ROOT_CLI.getWithDelimiter() + baseFolderInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, BaseFolderInfoConstant.DOWNLOAD.getWithDelimiter() + baseFolderInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, BaseFolderInfoConstant.OTHER.getWithDelimiter() + baseFolderInfo.getOtherFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+
+                baseFolderInfoCacheStore.add("BASE_FOLDER", baseFolderInfo);
+            } catch (Exception ex) {
+                log.error("{}", ex);
+            }
+        };
+    }
+
+    private Runnable getRunnableForOSInfoFilling() {
+        return () -> {
+            InitOsInfoUseCase initOsInfoUseCase = new InitOsInfoUseCaseImpl();
+            OsInfo info = initOsInfoUseCase.getFromFileSystemInfo();
+            Path filePath = Paths.get(
+                    getRootFolderString() +
+                            FolderConstant.OTHER.getNameWithDelimiter() +
+                            FileConstant.OS_INFO.getNameWithDelimiter()
+            );
+
+            try {
+                Files.writeString(filePath, NAME.getTextWithDelimiter() + info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, VERSION.getTextWithDelimiter() + info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
+                Files.writeString(filePath, ARCH.getTextWithDelimiter() + info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
+                osInfoCacheStore.add("OS_INFO", info);
+            } catch (Exception ex) {
+                log.error("{}", ex);
+            }
+        };
     }
 
     public void createDirIfNotExist(final String dir) {

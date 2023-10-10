@@ -17,6 +17,10 @@ public enum OsInfoConstant {
         return text;
     }
 
+    public String getTextWithDelimiter() {
+        return this.text + ": ";
+    }
+
     public String getSystemPropName() {
         return systemPropName;
     }
