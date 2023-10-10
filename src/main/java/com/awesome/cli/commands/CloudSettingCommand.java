@@ -1,11 +1,13 @@
 package com.awesome.cli.commands;
 
+import com.awesome.cli.application.cache.CacheKey;
+import com.awesome.cli.application.cache.CacheStore;
 import com.awesome.cli.application.model.enums.CloudPropConstants;
 import com.awesome.cli.application.usecase.FillCloudPortPropUseCase;
 import com.awesome.cli.application.util.CommandTab;
 import com.awesome.cli.application.util.PromptColor;
 import com.awesome.cli.application.util.ShellHelper;
-import com.awesome.cli.commands.dto.CloudPortPropsDto;
+import com.awesome.cli.commands.dto.CloudPortProps;
 import lombok.AllArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -15,6 +17,7 @@ import org.springframework.shell.standard.ShellOption;
 @AllArgsConstructor
 public class CloudSettingCommand {
     private final FillCloudPortPropUseCase fillCloudPortPropUseCase;
+    private final CacheStore<CloudPortProps> cacheStore;
 
     @ShellMethod(value = "create bucket in cloud", key = "create-bucket")
     public String createBucket(
@@ -32,13 +35,13 @@ public class CloudSettingCommand {
             @ShellOption(value = {"--h"}, help = "host for cloud account", valueProvider = CommandTab.class) String host,
             @ShellOption(value = {"--t"}, help = "cloud system",defaultValue = "yandex", valueProvider = CommandTab.class) String type
     ) {
-
-        CloudPortPropsDto.builder()
+        CloudPortProps props = CloudPortProps.builder()
                 .cloudTypeProp(accessKey)
                 .accessKeyProp(secretKey)
                 .secretKeyProp(host)
-                .hostProp(type);
-
+                .hostProp(type)
+                .build();
+        cacheStore.add(CacheKey.CLOUD_PROPS, props);
         return ShellHelper.getColored("Dont impl yet", PromptColor.RED);
     }
 }

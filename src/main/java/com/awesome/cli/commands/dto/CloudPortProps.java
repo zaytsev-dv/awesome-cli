@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class CloudPortPropsDto {
+public class CloudPortProps {
     private String accessKeyProp;
     private String secretKeyProp;
     private String hostProp;
