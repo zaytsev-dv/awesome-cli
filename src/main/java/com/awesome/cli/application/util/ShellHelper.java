@@ -24,7 +24,7 @@ public class ShellHelper {
         this.terminal = terminal;
     }
 
-    public String getColored(String message, PromptColor color) {
+    public static String getColored(String message, PromptColor color) {
         return (new AttributedStringBuilder()).append(message, AttributedStyle.DEFAULT.foreground(color.toJlineAttributedStyle())).toAnsi();
     }
 
