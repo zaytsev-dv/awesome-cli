@@ -1,9 +1,9 @@
 package com.awesome.cli.application.usecase;
 
-import com.awesome.cli.application.model.BaseInfo;
+import com.awesome.cli.application.model.BaseFolderInfo;
 
 public interface InitFolderInfoUseCase {
-    String getFormatted();
+    String getFormattedFromFileSystem();
 
-    BaseInfo getFromFileSystemInfo();
+    BaseFolderInfo getFromFileSystemInfo();
 }

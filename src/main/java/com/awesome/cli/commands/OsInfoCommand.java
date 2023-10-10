@@ -11,6 +11,6 @@ public class OsInfoCommand {
 
     @ShellMethod(value = "Print your computer info", key = "os-info")
     public String printOsInfo() {
-        return String.join("\n", initOsInfoUseCase.getFormatted());
+        return String.join("\n", initOsInfoUseCase.getFormattedFromFileSystem());
     }
 }

@@ -1,7 +1,7 @@
 package com.awesome.cli.application.config;
 
 import com.awesome.cli.application.cache.CacheStore;
-import com.awesome.cli.application.model.BaseInfo;
+import com.awesome.cli.application.model.BaseFolderInfo;
 import com.awesome.cli.application.model.OsInfo;
 import com.awesome.cli.application.util.ShellHelper;
 import org.jline.terminal.Terminal;
@@ -22,7 +22,7 @@ public class ApplicationConfigBeans {
     }
 
     @Bean
-    public CacheStore<BaseInfo> baseInfoCacheStore() {
+    public CacheStore<BaseFolderInfo> baseInfoCacheStore() {
         return new CacheStore<>();
     }
 }

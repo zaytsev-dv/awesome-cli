@@ -1,13 +1,16 @@
 package com.awesome.cli.application.util;
 
-import com.awesome.cli.application.model.BaseInfo;
+import com.awesome.cli.application.cache.CacheStore;
+import com.awesome.cli.application.model.BaseFolderInfo;
 import com.awesome.cli.application.model.OsInfo;
+import com.awesome.cli.application.model.enums.BaseFolderInfoConstant;
 import com.awesome.cli.application.model.enums.FileConstant;
 import com.awesome.cli.application.model.enums.FolderConstant;
 import com.awesome.cli.application.usecase.InitFolderInfoUseCase;
 import com.awesome.cli.application.usecase.InitOsInfoUseCase;
 import com.awesome.cli.application.usecase.impl.InitFolderInfoUseCaseImpl;
 import com.awesome.cli.application.usecase.impl.InitOsInfoUseCaseImpl;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Files;
@@ -15,10 +18,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import static com.awesome.cli.application.model.enums.OsInfoConstant.*;
 import static com.awesome.cli.application.usecase.impl.InitOsInfoUseCaseImpl.NEXT_LINE;
 
 @Slf4j
+@AllArgsConstructor
 public class InitFolderHelper {
+    private final CacheStore<OsInfo> osInfoCacheStore;
+    private final CacheStore<BaseFolderInfo> baseFolderInfoCacheStore;
 
     public void createFileIfNotExist(final String file) {
         String rootUrl = this.getRootFolderString();
@@ -47,9 +54,11 @@ public class InitFolderHelper {
                                     FolderConstant.OTHER.getNameWithDelimiter() +
                                     FileConstant.OS_INFO.getNameWithDelimiter()
                     );
-                    Files.writeString(filePath, info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
+
+                    Files.writeString(filePath, NAME.getText() + ": " + info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, VERSION.getText() + ": " + info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, ARCH.getText() + ": " + info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
+                    this.osInfoCacheStore.add("OS_INFO", info);
                 } catch (Exception ex) {
                     log.error("{}", ex);
                 }
@@ -58,15 +67,18 @@ public class InitFolderHelper {
             case PROPS -> {
                 try {
                     InitFolderInfoUseCase initFolderInfoUseCase = new InitFolderInfoUseCaseImpl();
-                    BaseInfo baseInfo = initFolderInfoUseCase.getFromFileSystemInfo();
+                    BaseFolderInfo baseFolderInfo = initFolderInfoUseCase.getFromFileSystemInfo();
                     Path filePath = Paths.get(
                             this.getRootFolderString() +
                                     FolderConstant.PROPS.getNameWithDelimiter() +
                                     FileConstant.PROPS.getNameWithDelimiter()
                     );
-                    Files.writeString(filePath, "HOME FOLDER: " + baseInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, "ROOT CLI FOLDER: " + baseInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                    Files.writeString(filePath, "DOWNLOAD FOLDER: " + baseInfo.getRootCliFolder() + baseInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.HOME + ": " + baseFolderInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.ROOT_CLI + ": " + baseFolderInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.DOWNLOAD + ": " +  baseFolderInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.OTHER + ": " + baseFolderInfo.getOtherFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+
+                    this.baseFolderInfoCacheStore.add("BASE_FOLDER", baseFolderInfo);
                 } catch (Exception ex) {
                     log.error("{}", ex);
                 }

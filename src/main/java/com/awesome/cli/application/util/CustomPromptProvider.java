@@ -1,6 +1,9 @@
 package com.awesome.cli.application.util;
 
 
+import com.awesome.cli.application.cache.CacheStore;
+import com.awesome.cli.application.model.BaseFolderInfo;
+import com.awesome.cli.application.model.OsInfo;
 import com.awesome.cli.application.usecase.InitFolderInfoUseCase;
 import com.awesome.cli.application.usecase.InitPropUseCase;
 import com.awesome.cli.application.usecase.InitOsInfoUseCase;
@@ -15,11 +18,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomPromptProvider implements PromptProvider {
 
-    private boolean alreadyShowBanner;
+    private boolean alreadyShowBanner = false;
     private final ShellHelper shellHelper;
+    private final CacheStore<OsInfo> osInfoCacheStore;
+    private final CacheStore<BaseFolderInfo> baseFolderInfoCacheStore;
 
-    public CustomPromptProvider(ShellHelper shellHelper) {
+    public CustomPromptProvider(
+            final ShellHelper shellHelper,
+            final CacheStore<OsInfo> osInfoCacheStore,
+            final CacheStore<BaseFolderInfo> baseFolderInfoCacheStore
+    ) {
+        this.alreadyShowBanner = false;
         this.shellHelper = shellHelper;
+        this.osInfoCacheStore = osInfoCacheStore;
+        this.baseFolderInfoCacheStore = baseFolderInfoCacheStore;
     }
 
     @Override
@@ -29,8 +41,7 @@ public class CustomPromptProvider implements PromptProvider {
             alreadyShowBanner = true;
         }
         AttributedStyle foreground = AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE);
-
-        InitPropUseCase initPropUseCase = new InitPropUseCaseImpl(new InitFolderHelper());
+        InitPropUseCase initPropUseCase = new InitPropUseCaseImpl(new InitFolderHelper(osInfoCacheStore, baseFolderInfoCacheStore));
         initPropUseCase.init();
 
         return new AttributedString("AWESOME-CLI:>", foreground);
@@ -60,11 +71,11 @@ public class CustomPromptProvider implements PromptProvider {
         buf.append("\n");
         buf.append("======================================================================");
         buf.append("\n");
-        buf.append(initOsInfoUseCase.getFormatted());
+        buf.append(initOsInfoUseCase.getFormattedFromFileSystem());
         buf.append("\n");
         buf.append("======================================================================");
         buf.append("\n");
-        buf.append(initFolderInfoUseCase.getFormatted());
+        buf.append(initFolderInfoUseCase.getFormattedFromFileSystem());
         buf.append("\n");
         buf.append("======================================================================");
         buf.append("\n");

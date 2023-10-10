@@ -5,8 +5,9 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class BaseInfo {
+public class BaseFolderInfo {
     private final String homeFolder;
     private final String rootCliFolder;
     private final String downloadFolder;
+    private final String otherFolder;
 }
