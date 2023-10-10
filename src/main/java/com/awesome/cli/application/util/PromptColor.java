@@ -1,4 +1,4 @@
-package com.app.manager.util;
+package com.awesome.cli.application.util;
 
 public enum PromptColor {
     BLACK(0),

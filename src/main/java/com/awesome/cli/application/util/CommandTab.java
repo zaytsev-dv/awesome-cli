@@ -1,4 +1,4 @@
-package com.app.manager.util;
+package com.awesome.cli.application.util;
 
 import org.springframework.shell.CompletionContext;
 import org.springframework.shell.CompletionProposal;

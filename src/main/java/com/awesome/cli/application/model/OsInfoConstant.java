@@ -1,4 +1,4 @@
-package com.app.manager.cache;
+package com.awesome.cli.application.model;
 
 public enum OsInfoConstant {
     NAME("OS Name"),

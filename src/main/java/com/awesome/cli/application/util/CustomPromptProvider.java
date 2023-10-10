@@ -1,8 +1,8 @@
-package com.app.manager;
+package com.awesome.cli.application.util;
 
 
-import com.app.manager.cache.Cache;
-import com.app.manager.util.ShellHelper;
+import com.awesome.cli.application.usecase.OsInfoUseCase;
+import com.awesome.cli.application.usecase.impl.OsInfoUseCaseImpl;
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;
 import org.springframework.shell.jline.PromptProvider;
@@ -12,11 +12,9 @@ import org.springframework.stereotype.Component;
 public class CustomPromptProvider implements PromptProvider {
 
     private boolean alreadyShowBanner;
-    private final Cache cache;
     private final ShellHelper shellHelper;
 
-    public CustomPromptProvider(Cache cache, ShellHelper shellHelper) {
-        this.cache = cache;
+    public CustomPromptProvider(ShellHelper shellHelper) {
         this.shellHelper = shellHelper;
     }
 
@@ -30,8 +28,8 @@ public class CustomPromptProvider implements PromptProvider {
         return new AttributedString("AWESOME-CLI:>", foreground);
     }
 
-    //TODO: порефакторить
     private String getBanner() {
+        OsInfoUseCase osInfoUseCase = new OsInfoUseCaseImpl();
         StringBuilder buf = new StringBuilder();
         String copyright = shellHelper.getInfoMessage("BEEP BEEP MOTHERFUCKER \n") +
                 "▄▄▄▌▐██▌█ " + shellHelper.getInfoMessage(" I am a console utility created by:" + " zaytsev_dv" + "\n");
@@ -49,7 +47,7 @@ public class CustomPromptProvider implements PromptProvider {
         buf.append("\n");
         buf.append("===================================================================");
         buf.append("\n");
-        buf.append(shellHelper.getInfoMessage(cache.getFormattedOSInfo()));
+        buf.append(osInfoUseCase.getFormatted());
         buf.append("\n");
         buf.append("===================================================================");
         buf.append("\n");
