@@ -43,6 +43,8 @@ public class CustomPromptProvider implements PromptProvider {
         buf.append("\n");
         buf.append("===================================================================");
         buf.append("\n");
+        buf.append(shellHelper.getWarningMessage("To start using the CLI, enter the command: \"Start\""));
+        buf.append("\n");
         buf.append(shellHelper.getWarningMessage("if you want to know what i can do just enter the command: \"Help\""));
         buf.append("\n");
         buf.append("===================================================================");
