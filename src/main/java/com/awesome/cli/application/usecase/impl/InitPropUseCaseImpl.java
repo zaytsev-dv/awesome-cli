@@ -21,8 +21,8 @@ public class InitPropUseCaseImpl implements InitPropUseCase {
         this.initFolderHelper.createFileIfNotExist(FolderConstant.PROPS.getNameWithDelimiter() + FileConstant.PROPS.getNameWithDelimiter());
         this.initFolderHelper.createFileIfNotExist(FolderConstant.OTHER.getNameWithDelimiter() + FileConstant.OS_INFO.getNameWithDelimiter());
 
-        this.initFolderHelper.fillFile(FileConstant.OS_INFO, FolderConstant.OTHER);
-        this.initFolderHelper.fillFile(FileConstant.PROPS, FolderConstant.PROPS);
+        this.initFolderHelper.fillFile(FileConstant.OS_INFO);
+        this.initFolderHelper.fillFile(FileConstant.PROPS);
 
         //TODO если на тачке изменились root и home то надо отловить этот момент и переносить все директории по новому пути и актуализировать все остальное
     }

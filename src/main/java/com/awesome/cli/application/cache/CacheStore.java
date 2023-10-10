@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CacheStore<T> {
-    private final Cache<String, T> cache;
+    private final Cache<CacheKey, T> cache;
 
     public CacheStore() {
         cache = CacheBuilder.newBuilder()
@@ -16,11 +16,11 @@ public class CacheStore<T> {
                 .build();
     }
 
-    public T get(String key) {
+    public T get(CacheKey key) {
         return cache.getIfPresent(key);
     }
 
-    public void add(String key, T value) {
+    public void add(CacheKey key, T value) {
         if (key != null && value != null) {
             cache.put(key, value);
             log.info("Record stored in "

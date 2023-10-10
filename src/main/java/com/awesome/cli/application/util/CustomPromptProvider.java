@@ -39,11 +39,10 @@ public class CustomPromptProvider implements PromptProvider {
         if (!alreadyShowBanner) {
             System.out.println(this.getBanner());
             alreadyShowBanner = true;
+            InitPropUseCase initPropUseCase = new InitPropUseCaseImpl(new InitFolderHelper(osInfoCacheStore, baseFolderInfoCacheStore));
+            initPropUseCase.init();
         }
         AttributedStyle foreground = AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE);
-        InitPropUseCase initPropUseCase = new InitPropUseCaseImpl(new InitFolderHelper(osInfoCacheStore, baseFolderInfoCacheStore));
-        initPropUseCase.init();
-
         return new AttributedString("AWESOME-CLI:>", foreground);
     }
 

@@ -1,5 +1,6 @@
 package com.awesome.cli.application.util;
 
+import com.awesome.cli.application.cache.CacheKey;
 import com.awesome.cli.application.cache.CacheStore;
 import com.awesome.cli.application.model.BaseFolderInfo;
 import com.awesome.cli.application.model.OsInfo;
@@ -43,21 +44,10 @@ public class InitFolderHelper {
         return System.getProperty(FolderConstant.ROOT.getSystemPropName());
     }
 
-    private void ifFileNotExistProceed(
-            final Runnable runnable,
-            final FileConstant fileConstant,
-            final FolderConstant folderConstant
-    ) {
-        Path path = Paths.get(this.getRootFolderString() + folderConstant.getNameWithDelimiter() + fileConstant.getNameWithDelimiter());
-        if (path.toFile().length() == 0) {
-            runnable.run();
-        }
-    }
-
-    public void fillFile(final FileConstant fileConstant, final FolderConstant folderConstant) {
+    public void fillFile(final FileConstant fileConstant) {
         switch (fileConstant) {
-            case OS_INFO -> this.ifFileNotExistProceed(getRunnableForOSInfoFilling(), fileConstant, folderConstant);
-            case PROPS -> this.ifFileNotExistProceed(getRunnableForPropsInfoFilling(), fileConstant, folderConstant);
+            case OS_INFO -> getRunnableForOSInfoFilling().run();
+            case PROPS -> getRunnableForPropsInfoFilling().run();
         }
     }
 
@@ -71,12 +61,14 @@ public class InitFolderHelper {
                             FileConstant.PROPS.getNameWithDelimiter()
             );
             try {
-                Files.writeString(filePath, BaseFolderInfoConstant.HOME.getWithDelimiter() + baseFolderInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                Files.writeString(filePath, BaseFolderInfoConstant.ROOT_CLI.getWithDelimiter() + baseFolderInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                Files.writeString(filePath, BaseFolderInfoConstant.DOWNLOAD.getWithDelimiter() + baseFolderInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
-                Files.writeString(filePath, BaseFolderInfoConstant.OTHER.getWithDelimiter() + baseFolderInfo.getOtherFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                if (filePath.toFile().length() == 0) {
+                    Files.writeString(filePath, BaseFolderInfoConstant.HOME.getWithDelimiter() + baseFolderInfo.getHomeFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.ROOT_CLI.getWithDelimiter() + baseFolderInfo.getRootCliFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.DOWNLOAD.getWithDelimiter() + baseFolderInfo.getDownloadFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, BaseFolderInfoConstant.OTHER.getWithDelimiter() + baseFolderInfo.getOtherFolder() + NEXT_LINE, StandardOpenOption.APPEND);
+                }
 
-                baseFolderInfoCacheStore.add("BASE_FOLDER", baseFolderInfo);
+                baseFolderInfoCacheStore.add(CacheKey.BASE_FOLDER, baseFolderInfo);
             } catch (Exception ex) {
                 log.error("{}", ex);
             }
@@ -94,10 +86,12 @@ public class InitFolderHelper {
             );
 
             try {
-                Files.writeString(filePath, NAME.getTextWithDelimiter() + info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
-                Files.writeString(filePath, VERSION.getTextWithDelimiter() + info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
-                Files.writeString(filePath, ARCH.getTextWithDelimiter() + info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
-                osInfoCacheStore.add("OS_INFO", info);
+                if (filePath.toFile().length() == 0) {
+                    Files.writeString(filePath, NAME.getTextWithDelimiter() + info.getOsName() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, VERSION.getTextWithDelimiter() + info.getOsVersion() + NEXT_LINE, StandardOpenOption.APPEND);
+                    Files.writeString(filePath, ARCH.getTextWithDelimiter() + info.getOsArch() + NEXT_LINE, StandardOpenOption.APPEND);
+                }
+                osInfoCacheStore.add(CacheKey.OS_INFO, info);
             } catch (Exception ex) {
                 log.error("{}", ex);
             }
