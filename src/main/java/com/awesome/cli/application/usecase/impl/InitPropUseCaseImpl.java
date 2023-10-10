@@ -23,5 +23,7 @@ public class InitPropUseCaseImpl implements InitPropUseCase {
 
         this.initFolderHelper.fillFile(FileConstant.OS_INFO, FolderConstant.OTHER);
         this.initFolderHelper.fillFile(FileConstant.PROPS, FolderConstant.PROPS);
+
+        //TODO если на тачке изменились root и home то надо отловить этот момент и переносить все директории по новому пути и актуализировать все остальное
     }
 }
