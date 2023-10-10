@@ -13,6 +13,7 @@ public class BaseFolderInfo {
     private final String rootCliFolder;
     private final String downloadFolder;
     private final String otherFolder;
+    private final String cloudFolder;
 
     public String format() {
         return BaseFolderInfoConstant.HOME.getWithDelimiter() + homeFolder +
@@ -21,6 +22,8 @@ public class BaseFolderInfo {
                 NEXT_LINE +
                 BaseFolderInfoConstant.DOWNLOAD.getWithDelimiter() + downloadFolder +
                 NEXT_LINE +
-                BaseFolderInfoConstant.OTHER.getWithDelimiter() + otherFolder;
+                BaseFolderInfoConstant.OTHER.getWithDelimiter() + otherFolder +
+                NEXT_LINE +
+                BaseFolderInfoConstant.CLOUD.getWithDelimiter() + cloudFolder;
     }
 }

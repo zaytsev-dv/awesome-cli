@@ -2,7 +2,8 @@ package com.awesome.cli.application.model.enums;
 
 public enum FileConstant {
     PROPS("BaseFolders.txt"),
-    OS_INFO("OsInfo.txt");
+    OS_INFO("OsInfo.txt"),
+    CLOUD_PROPS("CloudProps.txt");
 
     private final String name;
 

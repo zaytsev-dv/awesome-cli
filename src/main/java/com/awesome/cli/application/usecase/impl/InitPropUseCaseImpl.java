@@ -16,10 +16,12 @@ public class InitPropUseCaseImpl implements InitPropUseCase {
     public void init() {
         this.initFolderHelper.createDirIfNotExist(FolderConstant.PROPS.getNameWithDelimiter());
         this.initFolderHelper.createDirIfNotExist(FolderConstant.DOWNLOAD.getNameWithDelimiter());
-        this.initFolderHelper.createDirIfNotExist(FolderConstant.OTHER.getNameWithDelimiter());
+        this.initFolderHelper.createDirIfNotExist(FolderConstant.DOWNLOAD.getNameWithDelimiter());
+        this.initFolderHelper.createDirIfNotExist(FolderConstant.CLOUD.getNameWithDelimiter());
 
         this.initFolderHelper.createFileIfNotExist(FolderConstant.PROPS.getNameWithDelimiter() + FileConstant.PROPS.getNameWithDelimiter());
         this.initFolderHelper.createFileIfNotExist(FolderConstant.OTHER.getNameWithDelimiter() + FileConstant.OS_INFO.getNameWithDelimiter());
+        this.initFolderHelper.createFileIfNotExist(FolderConstant.CLOUD.getNameWithDelimiter() + FileConstant.CLOUD_PROPS.getNameWithDelimiter());
 
         this.initFolderHelper.fillFile(FileConstant.OS_INFO);
         this.initFolderHelper.fillFile(FileConstant.PROPS);

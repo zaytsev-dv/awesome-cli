@@ -15,7 +15,8 @@ public class InitFolderInfoUseCaseImpl implements InitFolderInfoUseCase {
         return BaseFolderInfoConstant.HOME.getText() + ": " + info.getHomeFolder() + NEXT_LINE +
                 BaseFolderInfoConstant.ROOT_CLI.getText() + ": " + info.getRootCliFolder() + NEXT_LINE +
                 BaseFolderInfoConstant.DOWNLOAD.getText() + ": " + info.getDownloadFolder() + NEXT_LINE +
-                BaseFolderInfoConstant.OTHER.getText() + ": " + info.getOtherFolder();
+                BaseFolderInfoConstant.OTHER.getText() + ": " + info.getOtherFolder() + NEXT_LINE +
+                BaseFolderInfoConstant.CLOUD.getText() + ": " + info.getCloudFolder();
     }
 
     @Override
@@ -24,6 +25,7 @@ public class InitFolderInfoUseCaseImpl implements InitFolderInfoUseCase {
         String rootDir = System.getProperty(FolderConstant.ROOT.getSystemPropName());
         String downLoadDir = rootDir + FolderConstant.DOWNLOAD.getNameWithDelimiter();
         String otherDir = rootDir + FolderConstant.OTHER.getNameWithDelimiter();
-        return new BaseFolderInfo(homeDir, rootDir, downLoadDir, otherDir);
+        String cloudDir = rootDir + FolderConstant.CLOUD.getNameWithDelimiter();
+        return new BaseFolderInfo(homeDir, rootDir, downLoadDir, otherDir, cloudDir);
     }
 }

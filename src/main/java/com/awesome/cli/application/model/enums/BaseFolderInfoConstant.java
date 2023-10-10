@@ -4,7 +4,8 @@ public enum BaseFolderInfoConstant {
     HOME("Home computer folder"),
     ROOT_CLI("Root cli folder"),
     DOWNLOAD("Download folder"),
-    OTHER("Other folder");
+    OTHER("Other folder"),
+    CLOUD("Cloud folder");
 
     private final String text;
 

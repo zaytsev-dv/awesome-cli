@@ -5,7 +5,8 @@ public enum FolderConstant {
     OTHER("other", null),
     DOWNLOAD("download", null),
     HOME("home", "user.home"),
-    ROOT("root", "user.dir");
+    ROOT("root", "user.dir"),
+    CLOUD("cloud", null);
 
     private final String name;
     private final String systemPropName;
