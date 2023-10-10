@@ -40,6 +40,8 @@ public class CloudSettingCommand {
                 .hostProp(host)
                 .build();
         cacheStore.add(CacheKey.CLOUD_PROPS, props);
+        //TODO:  сохранить в файл
+        //TODO:  сделать заполнение кэша при старте
         return String.join("\n", "Cloud props was added",
                 ShellHelper.getColored(props.format(), PromptColor.CYAN));
     }
