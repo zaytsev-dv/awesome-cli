@@ -3,7 +3,8 @@ package com.awesome.cli.application.model;
 public enum OsInfoConstant {
     NAME("OS Name"),
     VERSION("OS Version"),
-    ARCH("OS Arch");
+    ARCH("OS Arch"),
+    HOME("OS Home folder");
 
     private final String text;
 
