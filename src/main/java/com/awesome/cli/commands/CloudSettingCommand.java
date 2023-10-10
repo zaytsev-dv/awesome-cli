@@ -17,6 +17,7 @@ import org.springframework.shell.standard.ShellOption;
 public class CloudSettingCommand {
     private final CacheStore<CloudPortProps> cacheStore;
 
+    //TODO добавить валидацию
     @ShellMethod(value = "create bucket in cloud", key = "create-bucket")
     public String createBucket(
             @ShellOption(value = {"--n"}, help = "name for your bucket", valueProvider = CommandTab.class) String bucketName,
@@ -26,6 +27,7 @@ public class CloudSettingCommand {
         return ShellHelper.getColored("Dont impl yet", PromptColor.RED);
     }
 
+    //TODO добавить валидацию
     @ShellMethod(value = "setup cloud settings", key = "setup-cloud-settings")
     public String setupCloud(
             @ShellOption(value = {"--ak"}, help = "access-key for cloud account", valueProvider = CommandTab.class) String accessKey,

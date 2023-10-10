@@ -18,4 +18,6 @@ public class BaseFolderCommand {
     public String printBaseFoldersInfo() {
         return String.join("\n", ShellHelper.getColored(cacheStore.get(CacheKey.BASE_FOLDER).format(), PromptColor.CYAN));
     }
+
+    //TODO сделать команду добавления новых директорий и обновления старых (при обновлении стоит подумать про hash директории)
 }
