@@ -41,6 +41,8 @@ public class CustomPromptProvider implements PromptProvider {
             alreadyShowBanner = true;
             InitPropUseCase initPropUseCase = new InitPropUseCaseImpl(new InitFolderHelper(osInfoCacheStore, baseFolderInfoCacheStore));
             initPropUseCase.init();
+
+            //TODO создавать бин cloud database port если CloudProps.txt заполнен
         }
         AttributedStyle foreground = AttributedStyle.DEFAULT.foreground(AttributedStyle.BLUE);
         return new AttributedString("AWESOME-CLI:>", foreground);
