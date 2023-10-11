@@ -1,6 +1,7 @@
-
-       ${AnsiColor.BRIGHT_YELLOW}▐▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌${AnsiColor.BRIGHT_YELLOW}
-   ${AnsiColor.BLUE}▄▄██▌${AnsiColor.BRIGHT_YELLOW}█${AnsiColor.CYAN}           BEEP BEEP MOTHERFUCKER${AnsiColor.RED}
-${AnsiColor.BLUE}▄▄▄▌▐██▌${AnsiColor.BRIGHT_YELLOW}█  ${AnsiColor.CYAN}I am a console utility created by:${AnsiColor.CYAN} ${AnsiColor.RED}zaytsev_dv${AnsiColor.RED}
-${AnsiColor.BLUE}███████▌${AnsiColor.BRIGHT_YELLOW}█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌${AnsiColor.DEFAULT}
-${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.BRIGHT_MAGENTA}
+${AnsiColor.BRIGHT_WHITE}===========================================================${AnsiColor.BRIGHT_WHITE}
+       ${AnsiColor.BRIGHT_YELLOW} █▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▌${AnsiColor.BRIGHT_YELLOW}
+   ${AnsiColor.BLUE}▄▄██▌${AnsiColor.BRIGHT_YELLOW}█${AnsiColor.CYAN}               BEEP BEEP MOTHERFUCKER${AnsiColor.RED}
+${AnsiColor.BLUE}▄▄▄▌▐██▌${AnsiColor.BRIGHT_YELLOW}█
+${AnsiColor.BLUE}███████▌${AnsiColor.BRIGHT_YELLOW}█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌${AnsiColor.DEFAULT}
+${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.BRIGHT_MAGENTA}
+${AnsiColor.BRIGHT_WHITE}===========================================================${AnsiColor.BRIGHT_WHITE}
