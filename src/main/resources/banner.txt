@@ -5,4 +5,4 @@ ${AnsiColor.BLUE}▄▄▄▌▐██▌${AnsiColor.BRIGHT_YELLOW}█${AnsiColo
 ${AnsiColor.BLUE}███████▌${AnsiColor.BRIGHT_YELLOW}█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▌${AnsiColor.DEFAULT}
 ${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀${AnsiColor.BRIGHT_MAGENTA}${AnsiColor.GREEN}(@)${AnsiColor.GREEN}${AnsiColor.BRIGHT_MAGENTA}▀${AnsiColor.BRIGHT_MAGENTA}
 ${AnsiColor.BRIGHT_WHITE}============================================================${AnsiColor.BRIGHT_WHITE}
-Hello!To start using cli. Enter the start ${AnsiColor.YELLOW}"command"${AnsiColor.YELLOW}
+Hello!To start using cli. Enter the ${AnsiColor.YELLOW}"start"${AnsiColor.YELLOW} ${AnsiColor.DEFAULT}command${AnsiColor.DEFAULT}
