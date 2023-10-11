@@ -4,3 +4,6 @@ shell:
     success: GREEN
     warning: YELLOW
     error: RED
+logging:
+  level:
+    root: off
